@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+.img-nostyle .reveal section img {
+	background: none;
+	border: none;
+	box-shadow: none;
+}
+.javascript-imgs .reveal section img {
+	margin: 15px 10%;
+}
+
+.red {
+	color: #C22D2D !important;
+}
+
+.title-nocaps .reveal h1, .title-nocaps .reveal h2, .title-nocaps .reveal h3, .title-nocaps .reveal h4, .title-nocaps .reveal h5, .title-nocaps .reveal h6 {
+	text-transform: none;
+}
