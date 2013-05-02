@@ -70,6 +70,9 @@
 					<ul>
 						<li>Ramble</li>
 						<li>Data Types</li>
+						<li>Objects</li>
+						<li>Functions</li>
+						<li>Arrays</li>
 					</ul>
 				</p>
 			</section>
@@ -207,11 +210,11 @@
 				<section>
 					<h2>Object Literal</h2>
 					<pre class="javascript"><code>
-						var empty_object = {};
-						var user = {
-							name: 'Rafael',
-							age: 25
-						}
+	var empty_object = {};
+	var user = {
+		name: 'Rafael',
+		age: 25
+	}
 					</code></pre>
 
 					<aside class="notes">
@@ -222,49 +225,49 @@
 				<section>
 					<h2>Access Properties</h2>
 					<pre class="javascript"><code>
-						user['name']; // Rafael
-						user.age; // 25
-						user.email; // undefined
-						user.gender || 'none'; // none
+	user['name']; // Rafael
+	user.age; // 25
+	user.email; // undefined
+	user.gender || 'none'; // none
 					</code></pre>
 				</section>
 
 				<section>
 					<h2>Passed by reference</h2>
 					<pre class="javascript"><code>
-						var another_user = user;
-						another_user.name = 'Travis';
-						user.name; // Travis
+	var another_user = user;
+	another_user.name = 'Travis';
+	user.name; // Travis
 					</code></pre>
 				</section>
 
 				<section>
 					<h2>Prototype</h2>
 					<pre class="javascript"><code>
-				user.get_age = function() { return this.age; }
+	user.get_age = function() { return this.age; }
 
-				var user_proto = function(){};
-				user_proto.prototype = user;
+	var user_proto = function(){};
+	user_proto.prototype = user;
 
-				var user2 = new user_proto;
-				user2.age = 40;
-				user2.get_age(); // 40
-				user.get_age(); // 25
+	var user2 = new user_proto;
+	user2.age = 40;
+	user2.get_age(); // 40
+	user.get_age(); // 25
 
-				user.get_name = function(){ return this.name; }
-				user2.name = 'Rafael';
-				user.get_name(); // Travis
+	user.get_name = function(){ return this.name; }
+	user2.name = 'Rafael';
+	user.get_name(); // Travis
 					</code></pre>
 				</section>
 
 				<section data-state="title-nocaps">
 					<h2>.hasOwnProperty</h2>
 					<pre class="javascript"><code>
-					user.height = 72;
-					user.hasOwnProperty('height'); // true
+	user.height = 72;
+	user.hasOwnProperty('height'); // true
 
-					user2.height; // 72
-					user2.hasOwnProperty('height'); // false
+	user2.height; // 72
+	user2.hasOwnProperty('height'); // false
 					</code></pre>
 
 					<aside class="notes">
@@ -275,11 +278,11 @@
 				<section>
 					<h2>Enumeration</h2>
 					<pre class="javascript"><code>
-					for ( var i in user ) {
-						if ( typeof user[i] !== 'function' ) {
-							alert( i + ': ' + user[i] );
-						}
-					}
+	for ( var i in user ) {
+		if ( typeof user[i] !== 'function' ) {
+			alert( i + ': ' + user[i] );
+		}
+	}
 					</code></pre>
 				</section>
 			</section>
@@ -289,33 +292,233 @@
 					<h1>Functions</h1>
 					<h2>Functions in JavaScript are Objects</h2>
 				</section>
+
 				<section>
-					<h2></h2>
-					<pre class="javascript"><code></code></pre>
+					<p>
+						<ul>
+							<li>Functions are objects.</li>
+							<li>Function objects have a hidden link to: <code>Function.prototype</code>.</li>
+							<li><code>Function.prototype</code> is itself linked to: <code>Object.prototype</code>.</li>
+							<li>Every function also has two other hidden properties:
+								<ul>
+									<li>The functions context.</li>
+									<li>The code that is included inside the function.</li>
+								</ul>
+							</li>
+						</ul>
+					</p>
 				</section>
+
 				<section>
-					<h2></h2>
-					<pre class="javascript"><code></code></pre>
+					<h3>To complicate things</h3>
+					<p>
+						<ul>
+							<li>Every function object has a <code>prototype</code> property.</li>
+							<li>It's value is a <code>constructor</code> property whose value is the function.</li>
+						</ul>
+					</p>
 				</section>
+
 				<section>
-					<h2></h2>
-					<pre class="javascript"><code></code></pre>
+					<p>
+						<img src="img/wat2.jpg" alt="Beaker Muppet" />
+					</p>
+
+					<aside class="notes">
+						The thing that's special about functions is that they can be invoked.
+					</aside>
 				</section>
+
 				<section>
-					<h2></h2>
-					<pre class="javascript"><code></code></pre>
+					<h2>Function Literal</h2>
+					<pre class="javascript"><code>
+	// Create a function that gets the remainder
+	var remainder = function(a, b) {
+		return a % b;
+	}
+					</code></pre>
+
+					<aside class="notes">
+						Functions are created with function literals.<br />
+						A function has 4 parts:<br />
+						<ul>
+							<li>The reserved word <code>function</code></li>
+							<li>The functions name (optional).</li>
+							<li>The parameters for the function. Zero or more.</li>
+							<li>The statements wrapped in curly braces.</li>
+						</ul>
+						A function literal can appear anywhere that an expression can appear.
+					</aside>
 				</section>
+
 				<section>
-					<h2></h2>
-					<pre class="javascript"><code></code></pre>
+					<h2>Closure</h2>
+					<pre class="javascript"><code>
+	var person = function(fname, lname, age){
+		var get_name = function(){
+				return fname + ' ' + lname;
+			},
+			get_age = function(){
+				return age;
+			};
+
+		return {
+			name: get_name(),
+			age: get_age()
+		}
+	}
+
+	var user_object = person('Rafael', 'Corral', 25);
+					</code></pre>
+
+					<aside class="notes">
+						<ul>
+							<li>Functions can be created inside of other functions.</li>
+							<li>An inner function has access to parameters and variables of the functions it's nested within.</li>
+							<li>Te function object created by a function literal contains a hidden link to that context.</li>
+							<li>This is called closure.</li>
+						</ul>
+					</aside>
 				</section>
+
 				<section>
-					<h2></h2>
-					<pre class="javascript"><code></code></pre>
+					<h2>Function Invocation Pattern</h2>
+					<p>
+						When a function is invoked it get's the declared parameters.<br />
+						It receives two additional parameters: <code>this</code> and <code>arguments</code>.<br />
+						The value of <code>this</code> is determined by the <em>invocation pattern</em>.<br />
+					</p>
 				</section>
+
 				<section>
-					<h2></h2>
-					<pre class="javascript"><code></code></pre>
+					<h2>Method Invocation</h2>
+					<pre class="javascript"><code>
+	var my_person = {
+		age: 0,
+		increment_age: function(inc){
+			this.age += typeof inc === 'number' ? inc : 1;
+			return this;
+		},
+		get_age: function(){
+			return this.age;
+		}
+	}
+
+	my_person.increment_age().get_age(); // 1
+	my_person.increment_age(2).get_age(); // 3
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Function Invocation Pattern</h2>
+					<pre class="javascript"><code>
+	var color = 'red';
+	var favorite_color = {
+		get_color: function(){
+			this.color = 'blue';
+			function inner_function(){
+				return this.color;
+			}
+			return inner_function();
+		}
+	}
+
+	favorite_color.get_color();<span class="fragment"> // 'red'</span>
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Function Invocation Pattern</h2>
+					<pre class="javascript"><code>
+	var color = 'red';
+	var favorite_color = {
+		get_color: function(){
+			this.color = 'blue';
+			var that = this; // Workaround
+			function inner_function(){
+				return that.color;
+			}
+			return inner_function();
+		}
+	}
+
+	favorite_color.get_color();<span class="fragment"> // 'blue'</span>
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Constructor Invocation Pattern</h2>
+					<pre class="javascript"><code>
+	var Mammal = function( type ) {
+		this.type = type;
+	}
+
+	// Create a public method
+	Mammal.prototype.get_type = function(){
+		return this.type;
+	}
+
+	// Create a cat
+	var cat = new Mammal('cat');
+
+	cat.get_type(); // 'cat'
+					</code></pre>
+
+					<aside class="notes">
+						Functions that are intended to be used with the <code>new</code> prefix are called constructors.<br />
+						By convention, they are kept capitalized.<br />
+						If called without the <code>new</code> prefix, bad things can happen.<br />
+						<code>this</code> will get bound to the global object rather than the newely created one.<br />
+						It is not recommended to use this style of contructor functions.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Apply Invocation Pattern</h2>
+					<pre class="javascript"><code>
+	// The first parameter is the value of <em>this</em>
+
+	var array = [9, 6];
+	remainder.apply(null, array); // 3
+
+	cat.get_type.apply({type: 'dog'}); // 'dog'
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Function Scope</h2>
+					<pre class="javascript"><code>
+	var foo = function(){
+		var a = 3, b = 5;
+
+		var bar = function(){
+			var b = 7, c = 11;
+			// a is 3, b is 7, c is 11
+
+			a += b;
+			// a is 10, b is 7, c is 11
+		}
+		// a is 3, b is 5
+		bar();
+		// a is 10, b is 5
+	}
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Closure</h2>
+					<pre class="javascript"><code>
+	var game = (function(){
+		// This value can't be modified
+		var type = 'chess';
+
+		return {
+			get_game: function(){
+				return type;
+			}
+		}
+	}());
+					</code></pre>
 				</section>
 			</section>
 
