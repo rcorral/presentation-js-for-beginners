@@ -16,3 +16,26 @@
 .title-nocaps .reveal h1, .title-nocaps .reveal h2, .title-nocaps .reveal h3, .title-nocaps .reveal h4, .title-nocaps .reveal h5, .title-nocaps .reveal h6 {
 	text-transform: none;
 }
+
+#gray-logo {
+	position: absolute;
+	width: 100%;
+	top:0px;
+	left:0px;
+	z-index: 50;
+	opacity: .88;
+}
+#gray-logo:hover {
+	opacity: 1;
+}
+
+#orange-logo {
+	bottom: -88px;
+	left: 15px;
+	max-width: 170px;
+	position: absolute;
+	opacity: .7;
+}
+#orange-logo:hover{
+	opacity: 1;
+}
