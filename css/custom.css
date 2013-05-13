@@ -39,3 +39,11 @@
 #orange-logo:hover{
 	opacity: 1;
 }
+
+#gray-logo {
+	display: none;
+}
+
+.home #gray-logo {
+	display: inherit;
+}
